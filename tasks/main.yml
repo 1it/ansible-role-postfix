@@ -1,0 +1,23 @@
+---
+- name: Postfix | Install postfix
+  apt:
+    name: postfix
+    state: latest
+
+- name: Postfix | Write Postfix main.cf
+  template:
+    src: etc_postfix_main.j2
+    dest: /etc/postfix/main.cf
+  notify:
+    - restart postfix
+
+- name: Postfix | Aliases | Copy aliases file
+  template:
+    src: etc_aliases.j2
+    dest: /etc/aliases
+  register: aliases
+
+- name: Postfix | Aliases | Make newaliases
+  command:
+    newaliases
+  when: aliases.changed
