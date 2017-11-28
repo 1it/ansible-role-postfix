@@ -1,2 +1,3 @@
 ---
 admin_mail: 'ivan.tuzhilkin@gmail.com'
+postfix_inet_interfaces: 'all'
